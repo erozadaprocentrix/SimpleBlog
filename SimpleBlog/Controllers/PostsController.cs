@@ -10,7 +10,8 @@ namespace SimpleBlog.Controllers
     {
         public ActionResult Index()
         {
-            return Content("Hello, World!");
+            //return Content("<h1 style='color: Red'>Hello, World!</h1>");
+            return View();
         }
     }
 }
