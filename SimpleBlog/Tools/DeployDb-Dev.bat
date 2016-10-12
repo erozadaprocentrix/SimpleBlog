@@ -1,0 +1,1 @@
+..\..\MigrationWorkingDirectory\migrate.exe --db=mysql --target=..\bin\simpleblog.dll --configPath=..\web.config -c=MainDb
