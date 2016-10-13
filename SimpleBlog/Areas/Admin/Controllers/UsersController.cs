@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SimpleBlog.Areas.Admin.ViewModels;
 using SimpleBlog.Infrastructure;
+using NHibernate.Linq;
+using SimpleBlog.Models;
+using System.Linq;
 
 namespace SimpleBlog.Areas.Admin.Controllers
 {
@@ -14,7 +18,43 @@ namespace SimpleBlog.Areas.Admin.Controllers
         // GET: Admin/Users
         public ActionResult Index()
         {
-            return View();
+            return View(new UsersIndex
+            {
+                Users = Database.Session.Query<User>().ToList()
+            });
+        }
+
+        public ActionResult New()
+        {
+            return View(new UsersNew
+            {
+            });
+        }
+
+        [HttpPost]
+        public ActionResult New(UsersNew form)
+        {
+            if (Database.Session.Query<User>().Any(u => u.Username == form.Username))
+            {
+                ModelState.AddModelError("Username", "Username must be unique");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(form);
+            }
+
+            var user = new User
+            {
+                Email = form.Email,
+                Username = form.Username
+            };
+
+            user.SetPassword(form.Password);
+
+            Database.Session.Save(user);
+
+            return RedirectToAction("Index");
         }
     }
 }
