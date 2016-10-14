@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using SimpleBlog.Infrastructure;
 
-namespace SimpleBlog.App_Start
+namespace SimpleBlog
 {
     public class FilterConfig
     {
