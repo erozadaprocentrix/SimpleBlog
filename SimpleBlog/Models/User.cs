@@ -10,6 +10,13 @@ namespace SimpleBlog.Models
 {
     public class User
     {
+        private const int WorkFactor = 13;
+
+        public static void FakeHash()
+        {
+            BCrypt.Net.BCrypt.HashPassword("", WorkFactor);
+        }
+
         public virtual int Id { get; set; }
         public virtual string Username { get; set; }
         public virtual string Email { get; set; }
